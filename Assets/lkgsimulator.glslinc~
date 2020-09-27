@@ -1,0 +1,59 @@
+                uniform sampler2D quiltTexture;
+                uniform float tilesX;
+                uniform float tilesY;
+                uniform vec2 quiltViewPortion;
+                varying vec2 vUv;
+                varying vec3 vNormal;
+
+                vec2 texArr(vec3 uvz) {
+                    // float z = floor(uvz.z * tilesX * tilesY);
+                    float z = uvz.z;
+                    float x = (mod(z, tilesX) + uvz.x) / tilesX;
+                    float y = (floor(z / tilesX) + uvz.y) / tilesY;
+                    return vec2(x, y) * quiltViewPortion;
+                }
+
+                float remap(float value, float from1, float to1, float from2, float to2) {
+                    return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+                }
+
+                void main() {
+                    vec3 nuv = vec3(vUv.xy, 0.0);
+                    nuv.z = -vNormal.x * 1.6; // now -1 to 1 is like the viewcone
+                    float fade = nuv.z; // how far off center it is determines fade
+                    nuv.z = nuv.z * .5 + .5; // 0-1
+                    nuv.z = clamp(nuv.z, 0.0, 1.0);
+                    // nuv.z = mod(nuv.z + 4.0, 1.0); // ok really between 0-1 now
+                    // gl_FragColor = vec4(nuv.z, g, 0.0, 1.0);
+                    
+                    // get some samples
+                    float tiles = tilesX * tilesY;
+                    nuv.z *= tiles;
+
+                    vec3 uv_1 = nuv;
+                    uv_1.z = floor(uv_1.z);
+                    uv_1.z = clamp(uv_1.z, 0.0, tiles - 1.0);
+
+                    vec3 uv_2 = nuv;
+                    uv_2.z = ceil(uv_2.z);
+                    uv_2.z = clamp(uv_2.z, 0.0, tiles - 1.0);
+
+                    float lerp = clamp(mod(nuv.z + 2.0, 1.0), 0.0, 1.0);
+
+                    vec4 col1 = texture2D(quiltTexture, texArr(uv_1)); 
+                    vec4 col2 = texture2D(quiltTexture, texArr(uv_2)); 
+                    col1 = mix(col1, col2, lerp);
+                    if (abs(fade) > 1.0) {
+                        vec3 edgeUv = nuv;
+                        edgeUv.z = tiles - 1.0;
+                        if (fade > 0.0) {
+                            edgeUv.z = 0.0;
+                        }
+                        vec4 col3 = texture2D(quiltTexture, texArr(edgeUv)); 
+
+                        float fadeLerp = clamp((abs(fade) - 1.0) * 1.6, 0.0, 1.0);
+                        col1 = mix(col1, col3, fadeLerp);
+                    }
+
+                    gl_FragColor = col1;
+                }

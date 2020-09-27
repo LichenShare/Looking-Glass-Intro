@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using LookingGlass;
 
-[InitializeOnLoad]
+[ExecuteAlways]
 public class QuiltSeries : MonoBehaviour
 {
     public enum Mode { Physical, Simulation };

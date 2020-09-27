@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class dropMarker : MonoBehaviour
 {
-    public Transform marker;  //marker prefab
-    public KeyCode markerDrop=KeyCode.M;
+    public Transform flipMarker;  //marker prefab
+    public KeyCode flipMarkerDrop = KeyCode.F;
+    public Transform reflectionMarker;  //marker prefab
+    public KeyCode reflectionMarkerDrop = KeyCode.R;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,9 @@ public class dropMarker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(markerDrop))
-            Instantiate(marker, transform.position, Quaternion.identity);
+        if (Input.GetKeyDown(flipMarkerDrop))
+            Instantiate(flipMarker, transform.position, Quaternion.identity);
+        if (Input.GetKeyDown(reflectionMarkerDrop))
+            Instantiate(reflectionMarker, transform.position, Quaternion.identity);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class sunAngle : MonoBehaviour
 {
@@ -9,10 +10,13 @@ public class sunAngle : MonoBehaviour
     mouseLook ml;
     bool previousState;
     public float latitude, longitude;
+    public int day, month, hour, minute;
+    public Text dateText;
     // Start is called before the first frame update
     void Start()
     {
-        ml = GameObject.FindObjectOfType<mouseLook>();        
+        ml = GameObject.FindObjectOfType<mouseLook>();
+        setSunPosition(DateTime.Now);
     }
     float map(float s, float a1, float a2, float b1, float b2)
     {
@@ -22,34 +26,39 @@ public class sunAngle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
             previousState = ml.enabled;
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
             ml.enabled = previousState;
-        if (Input.GetKey(KeyCode.LeftShift))  //if you press shift, you're changing sun angle
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))  //if you press shift, you're changing sun angle
         {
             ml.enabled = false;
-            float time = map(Input.mousePosition.x, 0, Screen.width, 0, 18);
+            float time = map(Input.mousePosition.x, 0, Screen.width, 0, 24);
             float date = map(Input.mousePosition.y, 0, Screen.height, 0, 365);
             //transform.localEulerAngles = new Vector3(axis, 0, 0);
-            Vector3 angles = new Vector3();
-            float alt;
-            float azi;
-            int month = (int)date / 30;
-            int day = (int)date % 30;
-            int hour = (int)time;
-            int minute = (int)(60*(time % 1));
-            Debug.Log(month + " " + day + " " + hour + ":" + minute);
+            month = Mathf.Clamp((int)(date / 30)+1,1,12);
+            day = Mathf.Clamp((int)date % 30,1,30);
+            hour = (int)Mathf.Clamp(time,0,23);
+            minute = Mathf.Clamp((int)(60 * (time % 1)), 0, 59);
             DateTime d = new DateTime(2020, month, day, hour, minute, 0);
-            SunPosition.CalculateSunPosition(d, (float)latitude, (float)longitude, out azi, out alt);
-            angles.x = (float)alt * Mathf.Rad2Deg;
-            angles.y = (float)azi * Mathf.Rad2Deg;
-            //UnityEngine.Debug.Log(angles);
-            transform.localRotation = Quaternion.Euler(angles);
-            GetComponent<Light>().intensity = Mathf.InverseLerp(-12, 0, angles.x);
+            setSunPosition(d);
+        }        
+    }
 
-        }
-        
+    void setSunPosition(DateTime d)
+    {
+        Vector3 angles = new Vector3();
+        float alt;
+        float azi;
+        SunPosition.CalculateSunPosition(d, (float)latitude, (float)longitude, out azi, out alt);
+        angles.x = (float)alt * Mathf.Rad2Deg;
+        angles.y = (float)azi * Mathf.Rad2Deg;
+        //UnityEngine.Debug.Log(angles);
+        transform.localRotation = Quaternion.Euler(angles);
+        GetComponent<Light>().intensity = Mathf.InverseLerp(-12, 0, angles.x);
+        string dateString = d.ToString("MMMM d h:mm tt");
+        dateText.text = "Date:  " + dateString;
+
     }
 }
 /*  Thanks to Paul Hayes!  https://gist.github.com/paulhayes/54a7aa2ee3cccad4d37bb65977eb19e2
@@ -78,6 +87,7 @@ public static class SunPosition
     public static void CalculateSunPosition(
         DateTime dateTime, float latitude, float longitude, out float outAzimuth, out float outAltitude)
     {
+
         // Convert to UTC  
         dateTime = dateTime.ToUniversalTime();
 

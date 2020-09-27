@@ -251,7 +251,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   latitude: 41.82
-  longitude: 71.4128
+  longitude: -71.4128
+  day: 0
+  month: 0
+  hour: 0
+  minute: 0
+  dateText: {fileID: 274932403}
 --- !u!108 &43976664
 Light:
   m_ObjectHideFlags: 0
@@ -630,6 +635,85 @@ Transform:
   m_Father: {fileID: 543450652412362388}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &274932401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274932402}
+  - component: {fileID: 274932404}
+  - component: {fileID: 274932403}
+  m_Layer: 5
+  m_Name: Date
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &274932402
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274932401}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 719818297}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 482, y: 84}
+  m_SizeDelta: {x: 732.99927, y: 43.848938}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &274932403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274932401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Date:  September 27 2:03 PM'
+--- !u!222 &274932404
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274932401}
+  m_CullTransparentMesh: 0
 --- !u!4 &303196091 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4181921670371621710, guid: 3f547c5d7c7af944dbf6bde6fd3f5ea3,
@@ -816,6 +900,7 @@ RectTransform:
   m_Children:
   - {fileID: 908807326}
   - {fileID: 805634562}
+  - {fileID: 274932402}
   m_Father: {fileID: 1788707816}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -871,8 +956,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 520.3, y: 275.5}
-  m_SizeDelta: {x: 805.78296, y: 278.54037}
+  m_AnchoredPosition: {x: 539.3, y: 257.4}
+  m_SizeDelta: {x: 843.8672, y: 314.89346}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &805634563
 MonoBehaviour:
@@ -916,13 +1001,17 @@ MonoBehaviour:
     L
     -- toggle centering the camera on the Looking Glass
 
-    M -- Drop a marker
+    F -- Drop a purple ''flip''
+    marker
 
-    H
-    -- Toggle this help window
+    R -- Drop a green ''reflection'' marker
 
-    Shift + Mouse -- change time of day (left/right)
-    and seasons(up/down)'
+    H -- Toggle this help
+    window
+
+    Shift + Mouse -- change time of day (left/right) and seasons(up/down)
+
+'
 --- !u!222 &805634564
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -965,8 +1054,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 503.3, y: 275.51}
-  m_SizeDelta: {x: 696.1649, y: 178.55713}
+  m_AnchoredPosition: {x: 504.2, y: 243.4}
+  m_SizeDelta: {x: 694.43384, y: 242.60828}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &908807327
 MonoBehaviour:
@@ -1369,6 +1458,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203664058}
   m_CullTransparentMesh: 0
+--- !u!21 &1263336173
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Looking Glass (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 9b9da4337f9679e4a9ebc0e790f4f42f, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 8306a59d9382b834ba86171bf85b9320, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - tilesX: 5
+    - tilesY: 9
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - quiltViewPortion: {r: 0.99975586, g: 0.99975586, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1263957546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,8 +1848,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1413f7c32d3404b4190818c792acd420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  marker: {fileID: 1068591525652458047, guid: fe0f4ab4e69076746929dee0b56ceb28, type: 3}
-  markerDrop: 109
+  flipMarker: {fileID: 2291292208690181665, guid: 5c259fd163f4b6e44ac658c15bcc83b5,
+    type: 3}
+  flipMarkerDrop: 102
+  reflectionMarker: {fileID: 8774993268721918873, guid: ec24e8437c59a734786c7c83b5aea5a1,
+    type: 3}
+  reflectionMarkerDrop: 114
 --- !u!114 &1405377121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1693,7 +1866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24f20be51e7f46468bca20389110dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increment: 30
+  increment: 20
   cam: {fileID: 218016856}
   animating: 0
   period: 3
@@ -1703,6 +1876,8 @@ MonoBehaviour:
   startWiggle: 9
   lookAt: 108
   lookAtTarget: 0
+  lastDirection: {fileID: 0}
+  lastDir: {x: 0, y: 0, z: 0}
   ml: {fileID: 594547349}
 --- !u!1 &1465647969
 GameObject:
@@ -2374,6 +2549,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4181921670371621696, guid: 3f547c5d7c7af944dbf6bde6fd3f5ea3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1263336173}
     - target: {fileID: 8578366064487597221, guid: 3f547c5d7c7af944dbf6bde6fd3f5ea3,
         type: 3}
       propertyPath: m_RootOrder

@@ -34,7 +34,7 @@ public class QuiltSeries : MonoBehaviour
             if (simulator != null)
             {
                 display = simulator.FindDeepChild("Looking Glass Display");
-                simulatedLookingGlass = display.GetComponent<Renderer>().material;
+                simulatedLookingGlass = display.GetComponent<Renderer>().sharedMaterial;
             }
             else  //if not, look in the children -- if you can't find it there, then look in the whole project
             {

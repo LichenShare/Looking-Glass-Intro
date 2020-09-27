@@ -27,6 +27,7 @@ public class characterControl : MonoBehaviour
         r = GetComponent<Rigidbody>();
         lastDirection = transform;
         lastDirection.rotation = transform.rotation;
+        target = GameObject.FindObjectOfType<QuiltSeries>().transform;
     }
 
     // Update is called once per frame
@@ -34,11 +35,15 @@ public class characterControl : MonoBehaviour
     {
         float inc = increment*Time.deltaTime;
         Transform t;
-        
+        if(!animating)
+            if(lookAtTarget)
+                cam.transform.LookAt(target);
+
+        /*
             if (lookAtTarget)            
                 t = lastDirection;
-            else
-                t = cam;
+            else*/
+        t = cam;
 
             if (Input.GetKey(KeyCode.W))
                 r.AddForce(inc * Vector3.Normalize(Vector3.ProjectOnPlane(t.forward, Vector3.up)), ForceMode.Impulse);
@@ -93,7 +98,5 @@ public class characterControl : MonoBehaviour
                     animating = false;
 
         }
-        else if (lookAtTarget)
-            cam.transform.LookAt(target);
     }
 }

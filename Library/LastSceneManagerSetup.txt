@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Physical Looking Glass - Quilt Viewing.unity
+- path: Assets/CIT Simulator.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
